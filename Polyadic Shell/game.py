@@ -1,20 +1,22 @@
+from state import game_state
 from logic import update_game
 import pygame
-from ui import create_ui, update_ui, event_handler
+from ui import create_screen, create_ui, update_ui, event_handler
 
 def main():
-    pygame.init()
-    pygame.display.set_caption('Polyadic Shell')
-    window_surface = pygame.display.set_mode((800, 600))
-    background = pygame.Surface((800, 600))
-    background.fill(pygame.Color("#000000"))
-
-    ui = create_ui()
+    window_surface, background = create_screen()
+    ui, animations = create_ui()
     clock = pygame.time.Clock()
-
     running = True
+    debug_iter = 0
 
     while running:
+        if game_state["debug"] == True:
+            if debug_iter == 0:
+                print(game_state)
+            debug_iter += 1
+            if debug_iter % 100 == 0:
+                print(game_state)
 
         dt = clock.tick(60) / 1000.0
         for event in pygame.event.get():
@@ -22,16 +24,9 @@ def main():
                 running = False
             
             ui["manager"].process_events(event)
-            event_handler(event, ui)
-
+            event_handler(event, ui, animations)
         ui["manager"].update(dt)
 
-        update_game()
-        update_ui(ui, window_surface)
+        update_game(dt)
+        update_ui(ui, animations, dt, window_surface, background)
 
-        window_surface.blit(background, (0, 0))
-        ui["manager"].draw_ui(window_surface)
-
-        pygame.display.update()
-
-main()

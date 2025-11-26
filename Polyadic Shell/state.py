@@ -1,11 +1,9 @@
-import time
-
 game_state = {
-    "coins": 0,
+    "regolith": 0,
     "production_rate": 0,
-    "generators": 0, 
-    "gen_cost": 0,
-    "prestiges": 0,
-    "pres_cost": 0,
-    "last_time": time.time()
+    "mdrones": 0, 
+    "mdro_cost": 0,
+    "consolidations": 0,
+    "cnsd_cost": 0,
+    "debug": False
 }

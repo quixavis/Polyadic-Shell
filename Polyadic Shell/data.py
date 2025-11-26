@@ -1,16 +1,15 @@
 DATA = {
-    "coins": {
-        "coins_per_click": 1
+    "regolith": {
+        "regolith_per_click": 1
     },
-    "generators": {
+    "mdrones": {
         "base_cost": 10,
         "scaling": 1.5,
-        "generator_rate": 1,
+        "mdrone_rate": 1,
     },
-    "prestiges": {
+    "consolidations": {
         "base_cost": 100,
         "scaling": 2,
-        "prestige_boost": 1.5,
+        "consolidation_boost": 1.5,
     },
-    "ui_tick": 1000,
 }
