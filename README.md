@@ -10,6 +10,9 @@ Prerequisites
 1) Install Python
 - https://www.python.org/downloads/
 
+2) Open command line/terminal and point at the game's location
+- `cd (Path to game folder here)`
+
 2) Install dependencies
 - `pip install --upgrade pip`
 - `pip install -r requirements.txt`
