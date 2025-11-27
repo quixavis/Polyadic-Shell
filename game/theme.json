@@ -1,0 +1,88 @@
+{
+    "defaults": 
+    {
+        "colours":
+        {
+            "normal_bg": "#000000",
+            "hovered_bg": "#001400",
+            "disabled_bg": "#000000",
+            "selected_bg": "#002000",
+            "dark_bg": "#000000",
+
+            "normal_text": "#00FF00",
+            "hovered_text": "#66FF66",
+            "selected_text": "#00FF00",
+            "disabled_text": "#006600",
+            "link_text": "#00DD00",
+            "link_hover": "#33FF33",
+            "link_selected": "#55FF55",
+
+            "text_shadow": "#003300",
+
+            "normal_border": "#004400",
+            "hovered_border": "#00FF00",
+            "disabled_border": "#002200",
+            "selected_border": "#00AA00",
+            "active_border": "#00FF00",
+
+            "filled_bar": "#00AA00",
+            "unfilled_bar": "#003300"
+        },
+
+        "font":
+        {
+            "name": "space_mono",
+            "regular_path": "assets/Fonts/SpaceMono/SpaceMono-Regular.ttf",
+            "bold_path": "assets/Fonts/SpaceMono/SpaceMono-Bold.ttf",
+            "italic_path": "assets/Fonts/SpaceMono/SpaceMono-Italic.ttf",
+            "bold_italic_path": "assets/Fonts/SpaceMono/SpaceMono-BoldItalic.ttf",
+            "size": "16",
+            "bold": "0",
+            "italic": "0"
+        }
+    },
+
+    "label":
+    {
+        "font":
+        {
+            "name": "space_mono",
+            "size": "16",
+            "bold": "0",
+            "italic": "0"
+        }
+    },
+
+    "#title_label": 
+    {
+        "font":
+        {
+            "name": "space_mono",
+            "size": "32",
+            "bold": "0",
+            "italic": "0"
+        }
+    },
+
+    "#regular_label": 
+    {
+        "font":
+        {
+            "name": "space_mono",
+            "size": "16",
+            "bold": "0",
+            "italic": "0"
+        }
+    },
+
+    "button":
+    {
+        "font":
+        {
+            "name": "space_mono",
+            "size": "16",
+            "bold": "0",
+            "italic": "0"
+        }
+    }
+}

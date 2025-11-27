@@ -5,5 +5,6 @@ game_state = {
     "mdro_cost": 0,
     "consolidations": 0,
     "cnsd_cost": 0,
+    "mode": "menu",
     "debug": False
 }

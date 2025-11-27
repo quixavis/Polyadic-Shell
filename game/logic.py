@@ -1,5 +1,5 @@
-from state import game_state
-from data import DATA
+from game.state import game_state
+from game.data import DATA
 
 game_state["mdro_cost"] = int(DATA["mdrones"]["base_cost"] * (1 + DATA["mdrones"]["scaling"] * game_state["mdrones"]))
 game_state["cnsd_cost"] = int(DATA["consolidations"]["base_cost"] * (1 + DATA["consolidations"]["scaling"] * game_state["consolidations"]))
