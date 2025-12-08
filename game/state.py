@@ -6,5 +6,6 @@ game_state = {
     "consolidations": 0,
     "cnsd_cost": 0,
     "mode": "menu",
+    "running": True,
     "debug": False
 }

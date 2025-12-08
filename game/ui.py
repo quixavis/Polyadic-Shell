@@ -1,12 +1,12 @@
 from game.state import game_state
+from game.data import DATA
 from game.logic import regolith_clicker, mdrone_purchase, consolidate
 import pygame
 import pygame_gui
-from pygame_gui.elements import UIButton, UILabel
+from pygame_gui.elements import UIButton, UILabel, UITextBox
 import os
 
 def create_screen():
-    pygame.init()
     pygame.display.set_caption('Polyadic Shell')
     window_surface = pygame.display.set_mode((800, 600))
 
@@ -17,6 +17,12 @@ def create_ui():
 
     theme_path = os.path.join(os.path.dirname(__file__), "theme.json")
     ui["manager"] = pygame_gui.UIManager((800, 600), theme_path)
+
+    ui["intro_text"] = UITextBox(
+        html_text='',
+        relative_rect=pygame.Rect(0, 0, 800, 600),
+        manager=ui["manager"]
+    )
 
     ui["title_label"] = UILabel(
     relative_rect=pygame.Rect(250, 70, 300, 100),
@@ -110,6 +116,15 @@ def create_ui():
             "elapsed": 0,
             "version": 1,
             "surface": None
+        },
+
+        "intro_text": {
+            "active": False,
+            "duration": 10,
+            "elapsed": 0,
+            "version": 1,
+            "letter_index": 0,
+            "current_text": ""
         }
     }
 
@@ -122,6 +137,7 @@ def create_ui():
     ui["debug_button"].hide()
     ui["quit_button"].hide()
     ui["status_label"].hide()
+    ui["intro_text"].hide()
 
     return ui, animations
 
@@ -155,9 +171,41 @@ def start_fade(animations, surface):
     animations["fade_in_out"]["version"] = 1
     animations["fade_in_out"]["surface"] = surface
 
-def change_mode(ui, new_mode):
+def intro_text_tick(animations, ui, dt):
+    if animations["intro_text"]["active"] == True:
+        letter_index = animations["intro_text"]["letter_index"]
+
+        if animations["intro_text"]["version"] == 1:
+            if letter_index >= len(DATA["intro_text"]):
+                animations["intro_text"]["version"] = 0
+                animations["intro_text"]["elapsed"] = 0
+                return
+
+            if animations["intro_text"]["elapsed"] >= 0.05:
+                if DATA["intro_text"][letter_index] == "§":
+                    animations["intro_text"]["current_text"] += "<br>"
+                else:
+                    animations["intro_text"]["current_text"] += DATA["intro_text"][letter_index]
+
+                ui["intro_text"].set_text(animations["intro_text"]["current_text"] + "_")
+                if ui["intro_text"].scroll_bar is not None:
+                    ui["intro_text"].scroll_bar.set_scroll_from_start_percentage(1.0)
+                    ui["intro_text"].update(dt)
+                animations["intro_text"]["elapsed"] -= 0.05
+                animations["intro_text"]["letter_index"] += 1
+        elif animations["intro_text"]["elapsed"] >= 5:
+            animations["intro_text"]["active"] = False
+            return
+
+
+        animations["intro_text"]["elapsed"] += dt
+
+
+
+def change_mode(ui, animations, new_mode):
     game_state["mode"] = new_mode
     if new_mode == "menu":
+        ui["intro_text"].hide()
         ui["title_label"].show()
         ui["subtitle_label"].show()
         ui["start_button"].show()
@@ -170,7 +218,23 @@ def change_mode(ui, new_mode):
         ui["debug_button"].hide()
         ui["quit_button"].hide()
         ui["status_label"].hide()
+    elif new_mode == "intro":
+        animations["intro_text"]["active"] = True
+        ui["intro_text"].show()
+        ui["title_label"].hide()
+        ui["subtitle_label"].hide()
+        ui["start_button"].hide()
+        ui["regolith_label"].hide()
+        ui["mdrone_label"].hide()
+        ui["consolidate_label"].hide()
+        ui["regolith_button"].hide()
+        ui["mdrone_button"].hide()
+        ui["consolidate_button"].hide()
+        ui["debug_button"].hide()
+        ui["quit_button"].hide()
+        ui["status_label"].hide()
     elif new_mode == "game":
+        ui["intro_text"].hide()
         ui["title_label"].hide()
         ui["subtitle_label"].hide()
         ui["start_button"].hide()
@@ -201,8 +265,7 @@ def event_handler(event, ui, animations):
                 ui["status_label"].set_text("Consolidated")
                 start_fade(animations, ui["status_label_mask"])
         elif event.ui_element == ui["quit_button"]:
-            pygame.quit()
-            exit()
+            game_state["running"] = False
         elif event.ui_element == ui["debug_button"]:
             ui["status_label"].set_text("Debug Mode Toggled")
             start_fade(animations, ui["status_label_mask"])
@@ -214,7 +277,9 @@ def event_handler(event, ui, animations):
         elif event.ui_element == ui["debug_add_regolith"]:
             game_state["regolith"] += 1000
         elif event.ui_element == ui["start_button"]:
-            change_mode(ui, "game")
+            change_mode(ui, animations, "intro")
+    elif event.type == pygame.QUIT:
+        game_state["running"] = False
 
 def update_ui(ui, animations, dt, window_surface):
     background = pygame.Surface((800, 600))
@@ -222,6 +287,10 @@ def update_ui(ui, animations, dt, window_surface):
 
     if game_state["mode"] == "menu":
         pass
+    if game_state["mode"] == "intro":
+        intro_text_tick(animations, ui, dt)
+        if animations["intro_text"]["active"] == False:
+            change_mode(ui, animations, "game")
     elif game_state["mode"] == "game":
         ui["regolith_label"].set_text(f'Regolith: {int(game_state["regolith"])}')
         ui["mdrone_label"].set_text(f'Mining Drones: {int(game_state["mdrones"])}')

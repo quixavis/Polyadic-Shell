@@ -1,2 +1,3 @@
-from game.gameloop import run_gameloop
-run_gameloop()
+from game.gameloop import run_game
+
+run_game()
