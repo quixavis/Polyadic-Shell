@@ -472,9 +472,6 @@ def event_handler(event, ui, animations):
             change_mode(ui, animations, "outro")
     elif event.type == pygame.QUIT:
         game_state["running"] = False
-    elif event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_RETURN and pygame.key.get_mods() & pygame.KMOD_ALT:
-            toggle_fullscreen()
 
 def update_ui(ui, animations, dt, window_surface):
     background = pygame.Surface((800, 600))
