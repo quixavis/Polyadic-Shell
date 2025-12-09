@@ -75,6 +75,32 @@
         }
     },
 
+    "#sub_label":
+    {
+        "font":
+        {
+            "name": "space_mono",
+            "size": "13",
+            "bold": "0",
+            "italic": "0"
+        }
+    },
+
+    "elements":
+    {
+        "ui_text_box": 
+        {
+            "intro_text": 
+            {
+                "regular_style": 
+                {
+                    "font_name": "space_mono",
+                    "font_size": 16
+                }
+            }
+        }
+    },
+
     "button":
     {
         "font":
