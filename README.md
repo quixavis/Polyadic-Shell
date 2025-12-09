@@ -16,4 +16,4 @@ https://youtu.be/c1rU5FFtZmc
 - I learned how github, version control, visual studio code, and git work
 - I learned about file structure
 ### Summary
-Overall, I greatly enjoyed the creation of my project. I found the strife in learning pygame and pygame_gui not only entertaining, but enriching. I learned a lot about the mechanics of python itself, the fundamental idea behind OOP, the way libraries work, the way programming projects are managed, and the way scope must be controlled.
+Overall, I greatly enjoyed the creation of my project. I found the strife in learning pygame and pygame_gui not only entertaining, but enriching. I learned a lot about the mechanics of python itself, the fundamental idea behind OOP, the way libraries work, the way programming projects are managed, and the way scope must be controlled. It paid off, because I ended up achieving my vision for the game and creating something that I feel proud of, especially considering the difficulties that it took to get there.
