@@ -53,7 +53,7 @@ def create_ui():
     )
 
     ui["status_label"] = UILabel(
-    relative_rect=pygame.Rect(300, 230, 200, 30),
+    relative_rect=pygame.Rect(300, 500, 200, 30),
     text='Polyadic Shell',
     manager=ui["manager"]
     )
@@ -395,7 +395,6 @@ def change_mode(ui, animations, new_mode):
         ui["mdrone_button"].show()
         ui["fabricator_button"].show()
         ui["debug_button"].show()
-        ui["quit_button"].show()
         ui["status_label"].show()
         ui["synthsteel_label"].show()
         ui["synthsteel_button"].show()
@@ -469,7 +468,8 @@ def event_handler(event, ui, animations):
                 ui["status_label"].set_text("Not enough synthsteel")
                 start_fade(animations, ui["status_label_mask"])
         elif event.ui_element == ui["end_button"]:
-            change_mode(ui, animations, "outro")
+            if game_state["synthsteel"] >= 10000:
+                change_mode(ui, animations, "outro")
     elif event.type == pygame.QUIT:
         game_state["running"] = False
 
@@ -502,7 +502,7 @@ def update_ui(ui, animations, dt, window_surface):
 
     if game_state["mode"] == "game":
         fade_in_out_tick(animations, dt)
-        background.blit(ui["status_label_mask"], (300, 230))
+        background.blit(ui["status_label_mask"], (300, 500))
 
     window_surface.blit(background, (0, 0))
 
